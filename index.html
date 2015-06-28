@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>高醫廢文大賞統計表</title>
 
+    <link href="images.png" rel="image_src" type="image/jpeg">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -26,28 +27,38 @@
     <script>
     var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,message,likes.limit(0).summary(true)&limit=2500&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
     var allData = [];
-    $.getJSON( url, function( data ) {
-        allData = data['data'];
-        $.getJSON( String(data['paging']['next']), function(data2) {
-            $("#loading").remove();
-            $("<h3>目前只列出讚數最多的前200篇</h3>").insertBefore('#main_table');
-            $("#main_table").append("<td><tr>讚數</tr><tr>內容</tr><tr>連結</tr></td>");
-            allData.push.apply(allData, data2['data']);
-            console.log(allData.length);
-            allData.sort(function(a,b){
-                return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
-            });
-            for(var i = 0; i < 200; i++){
-                $("#main_table").append('<tr><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td>'+ String(allData[i]['message']).substring(0,10) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
-            }
+
+    getData(url);
+
+    function printResult() {
+        $("#loading").remove();
+        $("<h3>目前只列出讚數最多的前200篇</h3>").insertBefore('#main_table');
+        $("<h2>目前廢文數量："+ allData.length +"</h2>").insertBefore("#main_table");
+        $("#main_table").append("<td><tr>讚數</tr><tr>內容</tr><tr>連結</tr></td>");
+        console.log(allData.length);
+        allData.sort(function(a,b){
+            return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
         });
-    });
+        for(var i = 0; i < 200; i++){
+            $("#main_table").append('<tr><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td>'+ String(allData[i]['message']).substring(0,10) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
+        }
+    }
+
+    function getData(requestUrl) {
+        $.getJSON( requestUrl, function( data ) {
+            allData.push.apply(allData, data['data']);
+            if (typeof data['paging'] === "undefined")
+                printResult();
+            else
+                getData(String(data['paging']['next']));
+        });
+    }
     </script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
 
         ga('create', 'UA-64581859-1', 'auto');
         ga('send', 'pageview');
