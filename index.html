@@ -33,8 +33,8 @@
     function printResult() {
         $("#loading").remove();
         $("<h3>目前廢文數量："+ allData.length +"</h4>").insertBefore("#main_table");
-        $("<h4>目前只列出讚數最多的前200篇</h4>").insertBefore('#main_table');
-        $("#main_table").append("<td><tr>讚數</tr><tr>內容</tr><tr>連結</tr></td>");
+        $("<h4>讚數最多的前200篇</h4>").insertBefore('#main_table');
+        $("#main_table").append("<tr><td>讚數</td><td>內容</td><td>連結</td></tr>");
         console.log(allData.length);
         allData.sort(function(a,b){
             return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
