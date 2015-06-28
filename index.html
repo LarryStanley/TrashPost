@@ -24,7 +24,7 @@
     </div>
 
     <script>
-    var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,message,likes.limit(0).summary(true)&limit=3000&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
+    var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,message,likes.limit(0).summary(true)&limit=2500&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
     $.getJSON( url, function( data ) {
         $("#loading").remove();
         $("<h3>目前只列出讚數最多的前100篇</h3>").insertBefore('main_table');
