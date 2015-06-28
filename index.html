@@ -33,7 +33,7 @@
     function printResult() {
         $("#loading").remove();
         $("<h3>目前只列出讚數最多的前200篇</h3>").insertBefore('#main_table');
-        $("<h2>目前廢文數量："+ allData.length +"</h2>").insertBefore("#main_table");
+        $("<h4>目前廢文數量："+ allData.length +"</h4>").insertBefore("#main_table");
         $("#main_table").append("<td><tr>讚數</tr><tr>內容</tr><tr>連結</tr></td>");
         console.log(allData.length);
         allData.sort(function(a,b){
@@ -52,6 +52,7 @@
             else
                 getData(String(data['paging']['next']));
         });
+        console.log(allData.length);
     }
     </script>
     <script>
