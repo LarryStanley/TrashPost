@@ -26,7 +26,7 @@
             <div id="percent">0%</div>
             Made by <a href="https://goo.gl/aJxrBP" target="_blank">銀行汽車貸款＿吳先生</a>
         </div>
-        <table class="table table-bordered table-responsive" id="main_table">
+        <table class="table table-bordered table-responsive table-hover" id="main_table">
 
         </table>
     </div>
@@ -42,14 +42,15 @@
         $("#loading").remove();
         $("<h3>目前廢文數量："+ allData.length +"</h4>").insertBefore("#main_table");
         $("<h4>讚數最多的前200篇</h4>").insertBefore('#main_table');
-        $("#main_table").append("<tr><td>讚數</td><td>作者</td><td>內容</td><td>連結</td></tr>");
+        $("#main_table").append("<thead><tr><td>#</td><td>讚數</td><td>作者</td><td>內容</td><td>連結</td></tr></thead><tbody>");
         console.log(allData.length);
         allData.sort(function(a,b){
             return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
         });
         for(var i = 0; i < 200; i++){
-            $("#main_table").append('<tr><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
+            $("#main_table").append('<tr><td>'+ i +'</td><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
         }
+        $("#main_table").append("</tbody>");
     }
 
     function getData(requestUrl) {
