@@ -27,14 +27,13 @@
     var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,message,likes.limit(0).summary(true)&limit=2500&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
     $.getJSON( url, function( data ) {
         $("#loading").remove();
-        $(".container").append("<h3>目前只列出讚數最多的前100篇</h3>");
+        $("<h3>目前只列出讚數最多的前100篇</h3>").insetBefore('main_table');
         //$( ".result" ).html( data );
-        console.log(data['data'].length);
         data['data'].sort(function(a,b){
             return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
         });
         for(var i = 0; i < 100; i++){
-            $("#main_table").append('<tr><td>'+ data['data'][i]['likes']['summary']['total_count'] +'</td><td>'+ String(data['data'][i]['message']).substring(0,10) +'</td><td><a href="'+ data['data'][i]['actions'][0]['link'] +'" target="_blank">'+ data['data'][i]['actions'][0]['link'] +'</a><td><br>');
+            $("#main_table").append('<tr><td>'+ data['data'][i]['likes']['summary']['total_count'] +'</td><td>'+ String(data['data'][i]['message']).substring(0,10) +'</td><td><a href="'+ data['data'][i]['actions'][0]['link'] +'" target="_blank">'+ data['data'][i]['actions'][0]['link'] +'</a><td>');
         }
     });
     </script>
