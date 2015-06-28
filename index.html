@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>高醫廢文大賞統計表</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <style>
+        body {
+            font-family: KongXi, HelveticaNeue, Helvetica, Arial, "微軟正黑體", "微软雅黑", "メイリオ", "맑은 고딕", sans-serif;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>高醫期末廢文大賞統計表</h1>
+        <div id="loading">載入中......</div>
+        <table class="table table-bordered" id="main_table">
+
+        </table>
+    </div>
+
+    <script>
+    var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,message,likes.limit(0).summary(true)&limit=2500&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
+    $.getJSON( url, function( data ) {
+        $("#loading").remove();
+        //$( ".result" ).html( data );
+        console.log(data['data'].length);
+        data['data'].sort(function(a,b){
+            return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
+        });
+        for(var i = 0; i < 100; i++){
+            $("#main_table").append('<tr><td>'+ data['data'][i]['likes']['summary']['total_count'] +'</td><td>'+ String(data['data'][i]['message']).substring(0,10) +'</td><td><a href="'+ data['data'][i]['actions'][0]['link'] +'" target="_blank">'+ data['data'][i]['actions'][0]['link'] +'</a><td><br>');
+        }
+    });
+    </script>
+</body>
+</html>
