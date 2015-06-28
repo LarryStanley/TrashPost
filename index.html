@@ -23,6 +23,7 @@
         <div id="loading">
             載入中的廢文有種... 正在載入的感覺～<br><br>
             因廢文超多所以會載入很久<br>
+            <div id="percent">0%</div>
             Made by <a href="https://goo.gl/aJxrBP" target="_blank">銀行汽車貸款＿吳先生</a>
         </div>
         <table class="table table-bordered table-responsive" id="main_table">
@@ -33,6 +34,7 @@
     <script>
     var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,from,message,likes.limit(0).summary(true)&limit=2000&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
     var allData = [];
+    var percent = 0;
 
     getData(url);
 
@@ -59,6 +61,8 @@
                 getData(String(data['paging']['next']));
         });
         console.log(allData.length);
+        percent += 20;
+        $("#percent").replaceWith("<div id='percent'>"+ percent +"%</div>");
     }
     </script>
     <script>
