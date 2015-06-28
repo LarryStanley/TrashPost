@@ -28,12 +28,12 @@
     $.getJSON( url, function( data ) {
         $("#loading").remove();
         $("<h3>目前只列出讚數最多的前100篇</h3>").insertBefore('main_table');
-        $("#main_table").append("<thead><td><tr>讚數</tr><tr>內容</tr><tr>連結</tr></td></thead>")
+        $("#main_table").append("<td><tr>讚數</tr><tr>內容</tr><tr>連結</tr></td>")
         data['data'].sort(function(a,b){
             return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
         });
         for(var i = 0; i < 100; i++){
-            $("#main_table").append('<tr><td>'+ data['data'][i]['likes']['summary']['total_count'] +'</td><td>'+ String(data['data'][i]['message']).substring(0,10) +'</td><td><a href="'+ data['data'][i]['actions'][0]['link'] +'" target="_blank">'+ data['data'][i]['actions'][0]['link'] +'</a><td>');
+            $("#main_table").append('<tr><td>'+ data['data'][i]['likes']['summary']['total_count'] +'</td><td>'+ String(data['data'][i]['message']).substring(0,10) +'</td><td><a href="'+ data['data'][i]['actions'][0]['link'] +'" target="_blank">'+ data['data'][i]['actions'][0]['link'] +'</a></td>');
         }
     });
     </script>
