@@ -22,7 +22,7 @@
         雨停了的高雄有種... 下過雨的感覺～
         <div id="loading">
             載入中的廢文有種... 正在載入的感覺～<br><br>
-            因廢文超多所以會載入很久<br>
+            因廢文超多所以會載入一陣子<br>
             <div id="percent">0%</div>
             Made by <a href="https://goo.gl/aJxrBP" target="_blank">銀行汽車貸款＿吳先生</a>
         </div>
@@ -48,7 +48,7 @@
             return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
         });
         for(var i = 0; i < 200; i++){
-            $("#main_table").append('<tr><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,10) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
+            $("#main_table").append('<tr><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
         }
     }
 
