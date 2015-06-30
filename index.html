@@ -37,26 +37,26 @@
     </div>
 
     <script>
-    var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,from,message,likes.limit(0).summary(true)&limit=2000&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
+    var url = "https://graph.facebook.com/1460195947629865/feed?fields=actions,from,message,comments.limit(0).summary(true),likes.limit(0).summary(true)&limit=1000&access_token=CAAWnAJjuBBkBAB6ZAsyDd26F84D5iAZAopuZBv9h4GzC8RGFlwCbJOUtVoQESpBKvSCSPZC6EZC78ZBAkeHZClIkvLWY3dTZB7WZBaeybQN2bVWt8hFrqamvjwizgx66K84Wry4bDoLpWy3MV3spFMgYOPrqMG0olGb7C6Pn4r064hTi1tFODQzLi";
     var allData = [];
     var dotCount = 0;
     var resultCount = 50;
+    var sortWay = "likes";
 
     getData(url);
     setTimeout(loadingDot, 500);
 
     function printResult() {
         $("#loading").remove();
-        $("<h3>目前廢文數量："+ allData.length +"</h4>").insertBefore("#main_table");
-        $("<h4 id='postCount'>讚數最多的前50篇</h4>").insertBefore('#main_table');
-        $("#main_table").append("<thead><tr><td>#</td><td>讚數</td><td>作者</td><td>內容</td><td>連結</td></tr></thead><tbody id='tableContent'>");
+        $("<h3>目前廢文數量："+ String(allData.length) +"</h3>").insertBefore("#main_table");
+        $("#main_table").append("<thead><tr><td>#</td><td onclick='sortByLikes()'>讚數</td><td onclick='sortByComments()'>留言數</td><td>作者</td><td>內容</td><td>連結</td></tr></thead><tbody id='tableContent'>");
         console.log(allData.length);
         allData.sort(function(a,b){
             return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
         });
         for(var i = 0; i < 50; i++){
             var index = i + 1;
-            $("#main_table").append('<tr><td>'+ index +'</td><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
+            $("#main_table").append('<tr><td>'+ index +'</td><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td>'+ allData[i]['comments']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
         }
         $("#main_table").append("</tbody>");
         $(".container").append("<button class='btn btn-default' onclick='showMore()'>載入更多廢文</button>");
@@ -89,10 +89,43 @@
     function showMore() {
         for(var i = resultCount; i < resultCount + 50; i++){
             var index = i + 1;
-            $("#tableContent").append('<tr><td>'+ index +'</td><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
+            $("#tableContent").append('<tr><td>'+ index +'</td><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td>'+ allData[i]['comments']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
         }
         resultCount += 50;
-        $("#postCount").replaceWith("<h4 id='postCount'>讚數最多的前"+ resultCount +"篇</h4>");
+    }
+
+    function sortByLikes() {
+        if (sortWay != 'likes'){
+            sortWay = 'likes';
+            allData.sort(function(a,b){
+                return parseFloat(b.likes.summary.total_count) - parseFloat(a.likes.summary.total_count);
+            });
+            $("#main_table").empty();
+            $("#main_table").append("<thead><tr><td>#</td><td onclick='sortByLikes()'>讚數</td><td onclick='sortByComments()'>留言數</td><td>作者</td><td>內容</td><td>連結</td></tr></thead><tbody id='tableContent'>");
+            for(var i = 0; i < 50; i++){
+                var index = i + 1;
+                $("#main_table").append('<tr><td>'+ index +'</td><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td>'+ allData[i]['comments']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
+            }
+            $("#main_table").append("</tbody>");
+            resultCount = 50;
+        }
+    }
+
+    function sortByComments() {
+        if (sortWay != 'comments') {
+            sortWay = 'comments';
+            allData.sort(function(a,b){
+                return parseFloat(b.comments.summary.total_count) - parseFloat(a.comments.summary.total_count);
+            });
+            $("#main_table").empty();
+            $("#main_table").append("<thead><tr><td>#</td><td onclick='sortByLikes()'>讚數</td><td onclick='sortByComments()'>留言數</td><td>作者</td><td>內容</td><td>連結</td></tr></thead><tbody id='tableContent'>");
+            for(var i = 0; i < 50; i++){
+                var index = i + 1;
+                $("#main_table").append('<tr><td>'+ index +'</td><td>'+ allData[i]['likes']['summary']['total_count'] +'</td><td>'+ allData[i]['comments']['summary']['total_count'] +'</td><td><a target="_blank" href="http://www.facebook.com/'+ allData[i]['from']['id'] +'">'+ allData[i]['from']['name'] +'</a></td><td>'+ String(allData[i]['message']).substring(0,15) +'</td><td><a href="'+ allData[i]['actions'][0]['link'] +'" target="_blank">'+ allData[i]['actions'][0]['link'] +'</a></td>');
+            }
+            $("#main_table").append("</tbody>");
+            resultCount = 50;
+        }
     }
 
     </script>
