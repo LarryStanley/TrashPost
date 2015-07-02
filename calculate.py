@@ -15,7 +15,7 @@ with open("trashData.json") as jsonFile:
         createdTime = post['created_time']
         createdTime = createdTime.split("T")
         if str(createdTime[0]) in dateCount:
-            dateCount[str(createdTime[0])]++
+            dateCount[str(createdTime[0])] = dateCount[str(createdTime[0])] + 1
         else:
             dateCount[str(createdTime[0])] = 1
 

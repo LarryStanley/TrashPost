@@ -70,6 +70,7 @@
     function getData(requestUrl) {
         $.getJSON( requestUrl, function( data ) {
             allData = data;
+            setTimeout(printResult, 1000);
             console.log(allData.length);
         });
     }
