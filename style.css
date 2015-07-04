@@ -1,0 +1,20 @@
+@font-face {
+    font-family: HelveticaNeue;
+    src: url(HelveticaNeue-UltraLight.otf);
+}
+html, body {
+    background-color: rgb(235, 108, 94);
+
+    height: 100%;
+    font-family: HelveticaNeue ,Heiti TC, Helvetica, Arial, "微軟正黑體", "微软雅黑", "メイリオ", "맑은 고딕", sans-serif;
+    font-size: 24px;
+    color: white;
+}
+
+.centerAlign {
+    text-align: center;
+}
+
+.number {
+    font-size: 72px;
+}

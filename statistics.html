@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>7個你不需知道有關廢文大賞的事</title>
+
+    <link href="images.png" rel="image_src" type="image/jpeg">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="animate.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="jquery-1.11.3.min.js"></script>
+    <script src="jquery.animateNumber.min.js"></script>
+
+</head>
+<body>
+    <div class="container">
+        <h1 class="animated">7 個你不需知道有關廢文的事</h1>
+        根據英國研究指出<br>
+        在<a href="https://www.facebook.com/events/1460195947629865/">高醫期末廢文大賞</a>中<br>
+        共有<br>
+        <i class="fa fa-facebook centerAlign"></i>
+        <div class="number centerAlign" id="posts">
+            0
+        </div><div class="centerAlign">則廢文</div>
+        <div class="row animated">
+            <div class="col-md-4 centerAlign">
+                <div class="number" id="likes">0</div>個讚
+            </div>
+            <div class="col-md-4 centerAlign">
+                <div class="number" id="comments">0</div>則留言                
+            </div>
+            <div class="col-md-4 centerAlign">
+                <div class="number" id="word">0</div>個字
+            </div>
+        </div>
+        另外
+        <div class="row animated">
+            <div class="col-md-6 centerAlign">
+                <div class="number">6/25</div>這天中有最多廢文
+                共有1634則
+            </div>
+            <div class="col-md-6 centerAlign">
+                37.929%
+                的廢文都在<div class="number">21:00~01:00</div>這段時間貼出
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#posts').animateNumber({number: 6404});
+        $('#likes').animateNumber({ number: 598830 });
+        $('#comments').animateNumber({number: 38617});
+        $('#word').animateNumber({number: 603056});
+    </script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','http://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-64581859-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>
